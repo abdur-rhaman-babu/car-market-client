@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router-dom";
 
 const UpdateCar = () => {
     const car = useLoaderData()
-    const {name, price, brand, photo} = car;
+    const {name, price, brand, photo, _id} = car;
 
     const handleUpdateCar = e =>{
         e.preventDefault()
@@ -13,7 +13,22 @@ const UpdateCar = () => {
         const photo = form.photo.value
 
         const newCar = {name, price, brand, photo}
-        console.log(newCar)
+        // console.log(newCar)
+
+        fetch(`http://localhost:5500/cars/${_id}`,{
+            method:"PUT",
+            headers:{
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(newCar)
+        })
+        .then(res=> res.json())
+        .then(data=> {
+            console.log(data)
+            if(data.modifiedCount>0){
+                alert('data updated successfully')
+            }
+        })
 
     }
     return (
