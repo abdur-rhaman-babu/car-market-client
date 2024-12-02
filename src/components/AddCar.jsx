@@ -9,6 +9,18 @@ const AddCar = () => {
 
         const newCar = {name, price, brand, photo}
         console.log(newCar)
+
+        fetch('http://localhost:5500/cars',{
+          method:'POST',
+          headers:{
+            'content-type': 'application/json'
+          },
+          body:JSON.stringify(newCar)
+        })
+        .then(res=> res.json())
+        .then(data=>{
+          console.log(data)
+        })
     }
 
   return (
